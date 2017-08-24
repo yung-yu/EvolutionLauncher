@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import andy.evolutionlaunacher.log.AppViewHolder;
+import andy.evolutionlaunacher.vh.AppViewHolder;
 
 /**
  * Created by andyli on 2017/8/21.
@@ -40,8 +40,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppViewHolder> {
 	public void onBindViewHolder(AppViewHolder holder, int position) {
 		ResolveInfo info = getItem(position);
 		if(info != null){
-			holder.iconImage.setImageDrawable(info.loadIcon(context.getPackageManager()));
-			holder.appNameText.setText(info.loadLabel(context.getPackageManager()));
+			holder.update(context, info);
 		}
 
 	}

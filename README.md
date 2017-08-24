@@ -22,3 +22,33 @@
     intent.addCategory(Intent.CATEGORY_LAUNCHER);
     List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL);
 ```
+
+#3.判斷是否為系統ＡＰＰ
+```
+	public static boolean isSystemApp(ResolveInfo info){
+		return ((info.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+	}
+```
+
+#4.開啟ＡＰＰ
+```
+		ActivityInfo activity=info.activityInfo;
+		ComponentName name = new ComponentName(activity.applicationInfo.packageName,
+				activity.name);
+		Intent it=new Intent(Intent.ACTION_MAIN);
+
+		it.addCategory(Intent.CATEGORY_LAUNCHER);
+		it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+				Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		it.setComponent(name);
+
+		context.startActivity(it);
+```
+
+#5.解除安裝ＡＰＰ
+```
+	Uri packageUri = Uri.parse("package:"+info.activityInfo.packageName);
+	Intent uninstallIntent =
+			new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
+	context.startActivity(uninstallIntent);
+```
